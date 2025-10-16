@@ -8,9 +8,10 @@ Present-centered Schrödinger experiments. This repo demonstrates that the raw e
 - Repo focus: compute \(\psi\), convert it to probabilities, and show—via Monte Carlo sampling—that the same correlation pattern (event histogram) emerges as in the physical apparatus.
 
 ## Structure
-- `src/wavefunction_now/`: solver and probability utilities.
+- `src/`: installable `wavefunction_now` package with solver/measurement utilities.
 - `tests/`: pytest suite validating norm conservation, probability sums, and measurement collapse.
-- `notebooks/`: exploratory demos (e.g., wave packet spread, double-slit probabilities).
+- `notebooks/`: exploratory demos (double-slit, harmonic trap, grid sweeps, noisy detectors).
+- `docs/`: conceptual explanations and validation notes.
 
 ## Getting started
 ```bash
@@ -32,3 +33,18 @@ This repo stays neutral. The workflow is:
 3. Compare predicted and sampled distributions (KS/chi-squared tests in notebooks, unit tests for conservation laws).
 
 If the comparisons fail beyond statistical tolerance, we treat the model (or its numerical implementation) as falsified and record the discrepancy rather than forcing agreement. Agreement must earn its way through measurement; disagreement is an acceptable—and documented—outcome.
+
+## Context-bound validation (map vs territory)
+- Passing the double-slit notebook confirms that, for a free-particle propagation with a 2048-point grid and ideal detectors, the sampled events reproduce \(|\psi|^2\) according to both \(\chi^2\) and KS statistics.
+- Changing the context—e.g. introducing new potentials, coarser/finer grids, or detector noise—requires re-running the validation workflow. Each scenario is its own "micro-law" that must earn agreement in the present tense.
+- This is not a weakness; it embodies the project's philosophy that the wave function is a modelling tool whose adequacy is continually tested against the correlations we observe.
+
+See `docs/validation_scope.md` plus the notebooks listed below for scenario-specific checks.
+
+### Notebooks at a glance
+- `double_slit_histogram.ipynb`: interference verification (free particle).
+- `harmonic_oscillator_histogram.ipynb`: bounded potential and stationary-state sampling.
+- `grid_resolution_sweep.ipynb`: sensitivity of predictions to grid coarsening/refinement.
+- `noisy_detector_histogram.ipynb`: robustness of correlations under detector noise.
+
+Run the notebooks to explore how the same workflow behaves as the physical assumptions shift.
