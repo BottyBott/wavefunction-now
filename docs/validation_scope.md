@@ -15,6 +15,7 @@ That sentence is not a hedge; it is the statement of scientific rigor that keeps
 
 - **Map vs territory.** Acknowledging limits shows that we treat the wave function as a modelling tool. It succeeds only where present-time correlations confirm it.
 - **Present-centered validation.** Each notebook is a present-tense measurement: we run the simulation today, under stated assumptions, and record whether statistical tests agree.
+- **Built-in physics checks.** Long-run unitarity, energy conservation, and time-step convergence tests keep the numerical core honest before any context-specific data is introduced.
 - **Credibility over dogma.** Declaring success everywhere after a single scenario would be unscientific. Documenting the need for fresh validation keeps the project falsifiable and trustworthy.
 
 See the notebooks directory for concrete examples of how the same workflow behaves in different contexts, from ideal interference patterns to decohering qubits with imperfect detectors.
