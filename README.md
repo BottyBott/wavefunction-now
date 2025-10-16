@@ -23,12 +23,6 @@ source .venv/bin/activate
 pip install -e .[dev]
 pytest
 ```
-
-## Roadmap
-- Implement split-step Fourier time evolution (the predictive kernel).
-- Add measurement operators and histogram comparisons showing event patterns.
-- Document how the simulated correlations map to actual detector statistics (double-slit, Stern–Gerlach, etc.).
-
 ## Falsifiability
 This repo stays neutral. The workflow is:
 1. Compute \(\psi\) for a preparation and convert it to predicted probabilities.
