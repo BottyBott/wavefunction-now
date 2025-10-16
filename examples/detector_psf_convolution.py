@@ -8,7 +8,6 @@ deploy now rather than any past narrative about the system.
 
 from __future__ import annotations
 
-import math
 from dataclasses import dataclass
 
 import numpy as np
@@ -18,28 +17,12 @@ try:
 except ModuleNotFoundError:  # pragma: no cover - optional dependency
     plt = None
 
-from wavefunction_now.measurement import born_probability
+from wavefunction_now.measurement import (
+    apply_point_spread_function,
+    born_probability,
+    gaussian_point_spread_function,
+)
 from wavefunction_now.solver import SplitStepSimulator
-
-
-def gaussian_psf(width: float, dx: float, support: float = 5.0) -> np.ndarray:
-    """Return a discretised Gaussian PSF."""
-    if width <= 0:
-        return np.array([1.0])
-    half_width = int(math.ceil(support * width / dx))
-    offsets = np.arange(-half_width, half_width + 1)
-    kernel = np.exp(-(offsets * dx) ** 2 / (2 * width**2))
-    kernel /= kernel.sum()
-    return kernel
-
-
-def convolve_distribution(probabilities: np.ndarray, kernel: np.ndarray) -> np.ndarray:
-    """Convolve probabilities with the PSF and renormalise."""
-    blurred = np.convolve(probabilities, kernel, mode="same")
-    total = blurred.sum()
-    if total <= 0:
-        raise ValueError("PSF produced zero probability mass")
-    return blurred / total
 
 
 @dataclass
@@ -64,8 +47,8 @@ def run_psf_demo(widths: list[float]) -> PSFResult:
 
     measured: dict[float, np.ndarray] = {}
     for width in widths:
-        kernel = gaussian_psf(width, sim.dx)
-        measured[width] = convolve_distribution(ideal_prob, kernel)
+        kernel = gaussian_point_spread_function(width=width, spacing=sim.dx)
+        measured[width] = apply_point_spread_function(ideal_prob, kernel)
     return PSFResult(xs=sim.x, ideal=ideal_prob, measured=measured)
 
 

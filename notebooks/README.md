@@ -33,5 +33,9 @@ correlations that match \(|\psi|^2\) predictions across different contexts.
    - Evolves an amplitude-damped qubit with Lindblad master equations and quantum trajectories.
    - Mixes in detector inefficiency and dark counts to show how density matrices drive realistic click statistics.
 
+8. `decoherence_cat_state.ipynb`
+   - Starts from a macroscopic superposition and applies dephasing Lindblad dynamics.
+   - Shows off-diagonal decay, σx expectation collapse, and trajectory averaging that converges to a classical mixture.
+
 Each notebook emphasises that detectors record binary events and the wave
 function is the blueprint that predicts their correlation structure.

@@ -10,7 +10,7 @@ Present-centered Schrödinger experiments. This repo demonstrates that the raw e
 - Open systems: evolve density matrices with Lindblad generators or quantum trajectories so that decoherence and realistic detector models live in the same workflow.
 
 ## Structure
-- `src/`: installable `wavefunction_now` package with split-step solvers, Lindblad/trajectory engines, and measurement + detector utilities.
+- `src/`: installable `wavefunction_now` package with split-step solvers, Lindblad/trajectory engines, and measurement + detector utilities (POVMs, PSFs, detector response).
 - `tests/`: pytest suite validating long-run unitarity, energy conservation, probability sums, measurement collapse, and time-step convergence.
 - `examples/`: standalone scripts highlighting expectation-value constraints (Ehrenfest), uncertainty bounds, and detector PSF effects.
 - `notebooks/`: exploratory demos (double-slit, harmonic trap, grid sweeps, noisy detectors, decoherence trajectories).
@@ -53,5 +53,6 @@ See `docs/present_centered_program.md` for the conceptual motivation and `docs/v
 - `free_wavepacket.ipynb`: Gaussian packet propagation and sampling.
 - `stern_gerlach_correlations.ipynb`: sequential spin measurement correlations.
 - `density_matrix_decoherence.ipynb`: Lindblad evolution, quantum trajectories, and detector imperfections for an amplitude-damped qubit.
+- `decoherence_cat_state.ipynb`: dephasing of a cat-state density matrix into a classical mixture via Lindblad and trajectory simulations.
 
 Run the notebooks to explore how the same workflow behaves as the physical assumptions shift.

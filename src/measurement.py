@@ -2,7 +2,8 @@ r"""Measurement utilities: from \(\psi\) to event statistics.
 
 We never observe \(\psi\) directly. Instead we observe localised detector
 events whose frequencies follow \(|\psi|^2\). These helpers convert the
-wave-function model into the empirical correlations we actually record.
+wave-function model into the empirical correlations we actually record,
+including detector effects such as inefficiencies and point-spread functions.
 """
 
 from __future__ import annotations
@@ -246,3 +247,64 @@ def apply_detector_response(
     if total <= 0.0:
         raise ValueError("detector response produced zero probability mass")
     return detected / total
+
+
+def gaussian_point_spread_function(width: float, spacing: float, support: float = 5.0) -> np.ndarray:
+    """Return a discrete Gaussian point-spread kernel for detector blurring.
+
+    Parameters
+    ----------
+    width:
+        Standard deviation of the Gaussian PSF in the same units as the sampled axis.
+        A non-positive width collapses to an impulse response (no blurring).
+    spacing:
+        Grid spacing of the probability samples.
+    support:
+        Multiple of the width used to truncate the kernel. Larger values capture
+        more of the Gaussian tail at the cost of a longer kernel.
+    """
+
+    if spacing <= 0:
+        raise ValueError("spacing must be positive")
+    if width <= 0:
+        return np.array([1.0], dtype=float)
+    half_width = int(np.ceil(support * width / spacing))
+    offsets = np.arange(-half_width, half_width + 1)
+    kernel = np.exp(-(offsets * spacing) ** 2 / (2 * width**2))
+    total = kernel.sum()
+    if total <= 0:
+        raise ValueError("PSF kernel has zero norm")
+    return (kernel / total).astype(float)
+
+
+def apply_point_spread_function(probabilities: np.ndarray, kernel: np.ndarray) -> np.ndarray:
+    """Convolve probabilities with a detector PSF and renormalise the result."""
+
+    probs = np.asarray(probabilities, dtype=float)
+    if probs.ndim != 1:
+        raise ValueError("probabilities must be one-dimensional")
+    if probs.size == 0:
+        raise ValueError("probabilities cannot be empty")
+    if np.any(probs < 0):
+        raise ValueError("probabilities must be non-negative")
+    if probs.sum() <= 0:
+        raise ValueError("probabilities must have positive mass")
+
+    kernel = np.asarray(kernel, dtype=float)
+    if kernel.ndim != 1:
+        raise ValueError("kernel must be one-dimensional")
+    if kernel.size == 0:
+        raise ValueError("kernel cannot be empty")
+    if np.any(kernel < 0):
+        raise ValueError("kernel entries must be non-negative")
+    kernel_sum = kernel.sum()
+    if kernel_sum <= 0:
+        raise ValueError("kernel must have positive sum")
+    if not np.isclose(kernel_sum, 1.0):
+        kernel = kernel / kernel_sum
+
+    blurred = np.convolve(probs, kernel, mode="same")
+    total = blurred.sum()
+    if total <= 0:
+        raise ValueError("PSF application resulted in zero total probability")
+    return blurred / total

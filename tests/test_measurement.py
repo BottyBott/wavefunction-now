@@ -1,8 +1,10 @@
 import numpy as np
 
 from wavefunction_now.measurement import (
+    apply_point_spread_function,
     born_probability,
     chi_squared_gof,
+    gaussian_point_spread_function,
     ks_goodness_of_fit,
     projective_measurement,
     sample_measurements,
@@ -77,3 +79,24 @@ def test_ks_goodness_of_fit_detects_mismatch():
     d_stat, p_value = ks_goodness_of_fit(prob, samples)
     assert d_stat > 0.1
     assert p_value < 1e-6
+
+
+def test_gaussian_point_spread_function_properties():
+    kernel_delta = gaussian_point_spread_function(width=0.0, spacing=0.1)
+    assert np.allclose(kernel_delta, np.array([1.0]))
+
+    kernel = gaussian_point_spread_function(width=0.2, spacing=0.1, support=3.0)
+    assert np.isclose(kernel.sum(), 1.0)
+    assert np.all(kernel >= 0)
+    assert np.isclose(kernel[kernel.size // 2], kernel.max())
+
+
+def test_apply_point_spread_function_preserves_norm_and_blurs():
+    probabilities = np.zeros(51)
+    probabilities[25] = 1.0
+    kernel = np.array([1.0, 2.0, 1.0])
+
+    blurred = apply_point_spread_function(probabilities, kernel)
+    assert np.isclose(blurred.sum(), 1.0)
+    assert blurred[24] > 0 and blurred[26] > 0
+    assert blurred[25] < probabilities[25]

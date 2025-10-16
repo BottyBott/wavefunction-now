@@ -18,9 +18,9 @@ This project is a narrow, computational slice of a broader reality framework. It
 ## How the code ties in
 
 1. **Split-step simulator (`src/solver.py`).** Generates present-time wave functions for specified potentials without asserting anything about their origins.
-2. **Measurement utilities (`src/measurement.py`).** Convert wave functions and density matrices into probability histograms and statistical tests, making the link from model to detector explicit.
+2. **Measurement utilities (`src/measurement.py`).** Convert wave functions and density matrices into probability histograms, detector responses (efficiency, PSFs), and statistical tests, making the link from model to detector explicit.
 3. **Open-system solvers (`src/lindblad.py`).** Provide Lindblad master equations and quantum jump trajectories so decoherence and detector inefficiency are simulated alongside pure-state dynamics.
-4. **Notebooks (`notebooks/*.ipynb`).** Narrate different contexts—double-slit, harmonic oscillator, grid sweeps, noisy or lossy detectors—and document the validation outcome for each.
+4. **Notebooks (`notebooks/*.ipynb`).** Narrate different contexts—double-slit, harmonic oscillator, grid sweeps, noisy or lossy detectors, and decohering cat states—and document the validation outcome for each.
 5. **Examples (`examples/*.py`).** Quick, executable sanity checks—e.g. Ehrenfest expectation dynamics, Gaussian uncertainty bounds, and detector PSF effects—that keep the focus on present-time constraints without invoking hidden trajectories.
 6. **Tests (`tests/*.py`).** Automate checks that maintain internal coherence (normalisation, long-run unitarity, energy conservation, measurement collapse, time-step convergence) while leaving room for new, scenario-specific assertions.
 
