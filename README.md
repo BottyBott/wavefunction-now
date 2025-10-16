@@ -12,7 +12,7 @@ Present-centered Schrödinger experiments. This repo demonstrates that the raw e
 ## Structure
 - `src/`: installable `wavefunction_now` package with split-step solvers, Lindblad/trajectory engines, and measurement + detector utilities.
 - `tests/`: pytest suite validating long-run unitarity, energy conservation, probability sums, measurement collapse, and time-step convergence.
-- `examples/`: standalone scripts highlighting expectation-value constraints (Ehrenfest), etc.
+- `examples/`: standalone scripts highlighting expectation-value constraints (Ehrenfest), uncertainty bounds, etc.
 - `notebooks/`: exploratory demos (double-slit, harmonic trap, grid sweeps, noisy detectors, decoherence trajectories).
 - `docs/`: conceptual explanations and validation notes.
 

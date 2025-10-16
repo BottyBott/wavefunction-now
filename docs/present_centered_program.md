@@ -21,7 +21,7 @@ This project is a narrow, computational slice of a broader reality framework. It
 2. **Measurement utilities (`src/measurement.py`).** Convert wave functions and density matrices into probability histograms and statistical tests, making the link from model to detector explicit.
 3. **Open-system solvers (`src/lindblad.py`).** Provide Lindblad master equations and quantum jump trajectories so decoherence and detector inefficiency are simulated alongside pure-state dynamics.
 4. **Notebooks (`notebooks/*.ipynb`).** Narrate different contexts—double-slit, harmonic oscillator, grid sweeps, noisy or lossy detectors—and document the validation outcome for each.
-5. **Examples (`examples/*.py`).** Quick, executable sanity checks—e.g. Ehrenfest expectation dynamics—that keep the focus on present-time constraints without invoking hidden trajectories.
+5. **Examples (`examples/*.py`).** Quick, executable sanity checks—e.g. Ehrenfest expectation dynamics and Gaussian uncertainty bounds—that keep the focus on present-time constraints without invoking hidden trajectories.
 6. **Tests (`tests/*.py`).** Automate checks that maintain internal coherence (normalisation, long-run unitarity, energy conservation, measurement collapse, time-step convergence) while leaving room for new, scenario-specific assertions.
 
 This project gives us a sandbox where the philosophy of present-centred science can be inspected, modified, and extended in executable form as it relates to the quantum wave function. Every new notebook is an experiment in the systemic sense—an encounter with a whole under specified constraints, judged by what its events deliver right now.
