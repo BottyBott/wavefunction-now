@@ -1,6 +1,6 @@
 # Present-Centered Programme
 
-This project is a narrow, computational slice of the broader reality framework. It is based on my book-length thesis that contests the habit of treating models as time machines. It insists that science earns authority only when it remains anchored to the events we can register **now**. The wavefunction-now repository operationalises that stance with code.
+This project is a narrow, computational slice of a broader reality framework. It is based on my book-length thesis that contests the habit of treating models as time machines. It insists that science earns authority only when it remains anchored to the events we can register **now**. The wavefunction-now repository operationalises that stance with code.
 
 ## What we are doing
 
