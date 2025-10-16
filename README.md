@@ -47,7 +47,7 @@ See `docs/present_centered_program.md` for the conceptual motivation and `docs/v
 - `harmonic_oscillator_histogram.ipynb`: bounded potential and stationary-state sampling.
 - `grid_resolution_sweep.ipynb`: sensitivity of predictions to grid coarsening/refinement.
 - `noisy_detector_histogram.ipynb`: robustness of correlations under detector noise.
-- `free_wavepacket.ipynb` *(planned)*: Gaussian packet propagation and sampling.
-- `stern_gerlach_correlations.ipynb` *(planned)*: sequential spin measurement correlations.
+- `free_wavepacket.ipynb`: Gaussian packet propagation and sampling.
+- `stern_gerlach_correlations.ipynb`: sequential spin measurement correlations.
 
 Run the notebooks to explore how the same workflow behaves as the physical assumptions shift.

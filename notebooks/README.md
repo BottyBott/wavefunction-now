@@ -11,7 +11,7 @@ correlations that match \(|\psi|^2\) predictions across different contexts.
 
 2. `harmonic_oscillator_histogram.ipynb`
    - Bounded potential with stationary-state sampling.
-  - Confirms that detector events match the harmonic ground-state profile.
+   - Confirms that detector events match the harmonic ground-state profile.
 
 3. `grid_resolution_sweep.ipynb`
    - Repeats the double-slit scenario at multiple grid resolutions.
@@ -21,10 +21,13 @@ correlations that match \(|\psi|^2\) predictions across different contexts.
    - Injects Poisson noise into detector counts.
    - Illustrates how agreement degrades and how the tests quantify the shift.
 
-## In-progress / future ideas
+5. `free_wavepacket.ipynb`
+   - Tracks a single Gaussian packet in free space.
+   - Validates the spreading wave against detector statistics.
 
-- `free_wavepacket.ipynb`: Gaussian packet propagation and sampling.
-- `stern_gerlach_correlations.ipynb`: sequential spin measurement correlations.
+6. `stern_gerlach_correlations.ipynb`
+   - Simulates sequential Stern–Gerlach measurements.
+   - Demonstrates collapse-induced correlations for aligned and orthogonal axes.
 
 Each notebook emphasises that detectors record binary events and the wave
 function is the blueprint that predicts their correlation structure.
