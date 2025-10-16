@@ -4,6 +4,7 @@ Present-centered Schrödinger experiments. This repo demonstrates that the raw e
 
 ## Key points
 - What we measure: binary, localised events (detector clicks) linked by stable statistical patterns in space and time.
+- Where we stand: reality is encountered in the present; models earn trust only by matching the events we can register now.
 - What \(\psi\) does: encodes those patterns via the Born rule (Probability = \(|\psi|^2\)). \(\psi\) itself is not observed; it is a modelling tool for the causal network of events.
 - Repo focus: compute \(\psi\), convert it to probabilities, and show—via Monte Carlo sampling—that the same correlation pattern (event histogram) emerges as in the physical apparatus.
 
@@ -39,7 +40,7 @@ If the comparisons fail beyond statistical tolerance, we treat the model (or its
 - Changing the context—e.g. introducing new potentials, coarser/finer grids, or detector noise—requires re-running the validation workflow. Each scenario is its own "micro-law" that must earn agreement in the present tense.
 - This is not a weakness; it embodies the project's philosophy that the wave function is a modelling tool whose adequacy is continually tested against the correlations we observe.
 
-See `docs/validation_scope.md` plus the notebooks listed below for scenario-specific checks.
+See `docs/present_centered_program.md` for the conceptual motivation and `docs/validation_scope.md` plus the notebooks listed below for scenario-specific checks.
 
 ### Notebooks at a glance
 - `double_slit_histogram.ipynb`: interference verification (free particle).

@@ -2,7 +2,7 @@
 
 > *"Different potentials, grid sizes, or experimental noise would still need their own validation passes."*
 
-That sentence is not a hedge; it is the statement of scientific rigor that keeps this project honest. Each simulation we run is a **map** of a particular experimental context, not the territory itself. The moment the context changes, we must redraw the map.
+That sentence is not a hedge; it is the statement of scientific rigor that keeps this project honest. Each simulation we run is a **map** of a particular experimental context, not the territory itself. The moment the context changes, we must redraw the map with new detector events.
 
 ## What changes when the context changes?
 
@@ -12,7 +12,7 @@ That sentence is not a hedge; it is the statement of scientific rigor that keeps
 
 ## Why this strengthens the project
 
-- **Map vs territory.** Acknowledging limits shows that we treat the wave function as a modelling tool. It succeeds only where the empirical correlations confirm it.
+- **Map vs territory.** Acknowledging limits shows that we treat the wave function as a modelling tool. It succeeds only where present-time correlations confirm it.
 - **Present-centered validation.** Each notebook is a present-tense measurement: we run the simulation today, under stated assumptions, and record whether statistical tests agree.
 - **Credibility over dogma.** Declaring success everywhere after a single scenario would be unscientific. Documenting the need for fresh validation keeps the project falsifiable and trustworthy.
 
