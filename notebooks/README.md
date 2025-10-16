@@ -29,5 +29,9 @@ correlations that match \(|\psi|^2\) predictions across different contexts.
    - Simulates sequential Stern–Gerlach measurements.
    - Demonstrates collapse-induced correlations for aligned and orthogonal axes.
 
+7. `density_matrix_decoherence.ipynb`
+   - Evolves an amplitude-damped qubit with Lindblad master equations and quantum trajectories.
+   - Mixes in detector inefficiency and dark counts to show how density matrices drive realistic click statistics.
+
 Each notebook emphasises that detectors record binary events and the wave
 function is the blueprint that predicts their correlation structure.

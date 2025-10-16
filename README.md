@@ -7,11 +7,12 @@ Present-centered Schrödinger experiments. This repo demonstrates that the raw e
 - Where we stand: reality is encountered in the present; models earn trust only by matching the events we can register now.
 - What \(\psi\) does: encodes those patterns via the Born rule (Probability = \(|\psi|^2\)). \(\psi\) itself is not observed; it is a modelling tool for the causal network of events.
 - Repo focus: compute \(\psi\), convert it to probabilities, and show—via Monte Carlo sampling—that the same correlation pattern (event histogram) emerges as in the physical apparatus.
+- Open systems: evolve density matrices with Lindblad generators or quantum trajectories so that decoherence and realistic detector models live in the same workflow.
 
 ## Structure
-- `src/`: installable `wavefunction_now` package with solver/measurement utilities.
+- `src/`: installable `wavefunction_now` package with split-step solvers, Lindblad/trajectory engines, and measurement + detector utilities.
 - `tests/`: pytest suite validating norm conservation, probability sums, and measurement collapse.
-- `notebooks/`: exploratory demos (double-slit, harmonic trap, grid sweeps, noisy detectors).
+- `notebooks/`: exploratory demos (double-slit, harmonic trap, grid sweeps, noisy detectors, decoherence trajectories).
 - `docs/`: conceptual explanations and validation notes.
 
 ## Getting started
@@ -38,6 +39,7 @@ If the comparisons fail beyond statistical tolerance, we treat the model (or its
 ## Context-bound validation (map vs territory)
 - Passing the double-slit notebook confirms that, for a free-particle propagation with a 2048-point grid and ideal detectors, the sampled events reproduce \(|\psi|^2\) according to both \(\chi^2\) and KS statistics.
 - Changing the context—e.g. introducing new potentials, coarser/finer grids, or detector noise—requires re-running the validation workflow. Each scenario is its own "micro-law" that must earn agreement in the present tense.
+- Open systems—e.g. the amplitude-damped qubit in the density-matrix notebook—need their own validation loop because collapse operators, detector inefficiencies, and Monte Carlo trajectories introduce fresh failure modes.
 - This is not a weakness; it embodies the project's philosophy that the wave function is a modelling tool whose adequacy is continually tested against the correlations we observe.
 
 See `docs/present_centered_program.md` for the conceptual motivation and `docs/validation_scope.md` plus the notebooks listed below for scenario-specific checks.
@@ -49,5 +51,6 @@ See `docs/present_centered_program.md` for the conceptual motivation and `docs/v
 - `noisy_detector_histogram.ipynb`: robustness of correlations under detector noise.
 - `free_wavepacket.ipynb`: Gaussian packet propagation and sampling.
 - `stern_gerlach_correlations.ipynb`: sequential spin measurement correlations.
+- `density_matrix_decoherence.ipynb`: Lindblad evolution, quantum trajectories, and detector imperfections for an amplitude-damped qubit.
 
 Run the notebooks to explore how the same workflow behaves as the physical assumptions shift.

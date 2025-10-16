@@ -149,3 +149,100 @@ def ks_goodness_of_fit(predicted: np.ndarray, samples: np.ndarray) -> tuple[floa
     # Kolmogorov distribution survival function; conservative for discrete bins.
     p_value = stats.ksone.sf(d_statistic, n)
     return float(d_statistic), float(p_value)
+
+
+def density_matrix_probabilities(
+    rho: np.ndarray,
+    effects: np.ndarray | list[np.ndarray],
+) -> np.ndarray:
+    r"""Return outcome probabilities ``Tr(E_i \rho)`` for a POVM effect set."""
+
+    rho = np.asarray(rho, dtype=complex)
+    if rho.ndim != 2 or rho.shape[0] != rho.shape[1]:
+        raise ValueError("rho must be a square matrix")
+    dim = rho.shape[0]
+
+    trace = float(np.real(np.trace(rho)))
+    if trace <= 0.0:
+        raise ValueError("rho must have positive trace")
+    if not np.isclose(trace, 1.0, atol=1e-6):
+        rho = rho / trace
+
+    effects_arr = np.asarray(effects, dtype=complex)
+    if effects_arr.ndim == 3:
+        if effects_arr.shape[1:] != (dim, dim):
+            raise ValueError("effects must match the dimension of rho")
+        effect_mats = effects_arr
+    elif effects_arr.ndim == 2 and effects_arr.shape[1] == dim:
+        effect_mats = np.array([np.diag(mask) for mask in effects_arr], dtype=complex)
+    else:
+        raise ValueError("effects must be a stack of matrices or diagonal masks")
+
+    probabilities = np.real(np.einsum("aij,ji->a", effect_mats, rho))
+    if np.any(probabilities < -1e-8):
+        raise ValueError("probabilities became negative; check POVM definition")
+    probabilities = np.clip(probabilities, 0.0, None)
+    if probabilities.sum() <= 0.0:
+        raise ValueError("POVM produced zero total probability")
+    return probabilities
+
+
+def apply_detector_response(
+    probabilities: np.ndarray,
+    efficiency: float = 1.0,
+    dark_count: float = 0.0,
+    background: np.ndarray | None = None,
+) -> np.ndarray:
+    """Adjust ideal probabilities using a simple detector model.
+
+    Parameters
+    ----------
+    probabilities:
+        Idealised outcome probabilities (sum to one).
+    efficiency:
+        Fraction of true events recorded by each detector. Values below one
+        model missed clicks; the output distribution is renormalised over the
+        detected events.
+    dark_count:
+        Relative weight of spurious detector clicks. Set to zero for ideal
+        detectors. Larger values inject additional uniform (or user-supplied)
+        background counts that are mixed with the valid events before
+        renormalisation.
+    background:
+        Optional background distribution for dark counts. Must be the same
+        length as ``probabilities`` and non-negative. Defaults to a uniform
+        background.
+    """
+
+    probs = np.asarray(probabilities, dtype=float)
+    if probs.ndim != 1:
+        raise ValueError("probabilities must be one-dimensional")
+    if np.any(probs < 0):
+        raise ValueError("probabilities must be non-negative")
+    if not np.isclose(probs.sum(), 1.0):
+        raise ValueError("probabilities must sum to one")
+
+    if not (0.0 <= efficiency <= 1.0):
+        raise ValueError("efficiency must lie between 0 and 1")
+    if dark_count < 0.0:
+        raise ValueError("dark_count must be non-negative")
+
+    detected = efficiency * probs
+    if background is None:
+        background = np.ones_like(probs) / probs.size
+    else:
+        background = np.asarray(background, dtype=float)
+        if background.shape != probs.shape:
+            raise ValueError("background distribution must match probabilities shape")
+        if np.any(background < 0):
+            raise ValueError("background probabilities must be non-negative")
+        norm = background.sum()
+        if norm <= 0:
+            raise ValueError("background distribution must have positive weight")
+        background = background / norm
+
+    detected = detected + dark_count * background
+    total = detected.sum()
+    if total <= 0.0:
+        raise ValueError("detector response produced zero probability mass")
+    return detected / total
