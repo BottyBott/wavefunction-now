@@ -1,0 +1,23 @@
+[project]
+name = "wavefunction-now"
+version = "0.1.0"
+description = "Present-centered Schrödinger solver showing the wave function as a statistical tool."
+authors = [{ name = "Agentic Portfolio" }]
+requires-python = ">=3.11"
+dependencies = [
+    "numpy",
+    "scipy",
+    "matplotlib",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "pytest-cov",
+    "black",
+    "ruff",
+]
+
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
