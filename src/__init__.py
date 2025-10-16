@@ -4,6 +4,7 @@ from .solver import SplitStepSimulator
 from .measurement import (
     born_probability,
     chi_squared_gof,
+    ks_goodness_of_fit,
     projective_measurement,
     sample_measurements,
 )
@@ -14,4 +15,5 @@ __all__ = [
     "sample_measurements",
     "projective_measurement",
     "chi_squared_gof",
+    "ks_goodness_of_fit",
 ]

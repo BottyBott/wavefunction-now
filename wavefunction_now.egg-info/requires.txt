@@ -1,0 +1,9 @@
+numpy
+scipy
+matplotlib
+
+[dev]
+pytest
+pytest-cov
+black
+ruff

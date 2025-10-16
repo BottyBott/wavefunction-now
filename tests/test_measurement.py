@@ -3,6 +3,7 @@ import numpy as np
 from wavefunction_now.measurement import (
     born_probability,
     chi_squared_gof,
+    ks_goodness_of_fit,
     projective_measurement,
     sample_measurements,
 )
@@ -57,4 +58,22 @@ def test_chi_squared_gof_detects_mismatch():
     counts = np.array([100, 10, 890])
     statistic, p_value = chi_squared_gof(prob, counts)
     assert statistic > 0
+    assert p_value < 1e-6
+
+
+def test_ks_goodness_of_fit_accepts_valid_samples():
+    prob = np.array([0.25, 0.5, 0.25])
+    rng = np.random.default_rng(321)
+    samples = sample_measurements(prob, size=4000, rng=rng)
+    d_stat, p_value = ks_goodness_of_fit(prob, samples)
+    assert 0 <= d_stat <= 1
+    assert 0 <= p_value <= 1
+    assert p_value > 0.05
+
+
+def test_ks_goodness_of_fit_detects_mismatch():
+    prob = np.array([0.1, 0.2, 0.7])
+    samples = np.repeat(np.arange(prob.size), [900, 50, 50])
+    d_stat, p_value = ks_goodness_of_fit(prob, samples)
+    assert d_stat > 0.1
     assert p_value < 1e-6

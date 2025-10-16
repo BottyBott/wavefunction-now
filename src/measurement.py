@@ -113,3 +113,39 @@ def chi_squared_gof(predicted: np.ndarray, observed_counts: np.ndarray) -> tuple
 
     statistic, p_value = stats.chisquare(observed_counts, expected)
     return float(statistic), float(p_value)
+
+
+def ks_goodness_of_fit(predicted: np.ndarray, samples: np.ndarray) -> tuple[float, float]:
+    """Return Kolmogorov-Smirnov statistic and p-value for discrete outcomes."""
+    predicted = np.asarray(predicted, dtype=float)
+    samples = np.asarray(samples)
+    if predicted.ndim != 1:
+        raise ValueError("predicted probabilities must be one-dimensional")
+    if predicted.size == 0:
+        raise ValueError("predicted probabilities cannot be empty")
+    if np.any(predicted < 0):
+        raise ValueError("predicted probabilities must be non-negative")
+    total_prob = predicted.sum()
+    if not np.isclose(total_prob, 1.0):
+        raise ValueError("predicted probabilities must sum to one")
+    if samples.ndim != 1:
+        raise ValueError("samples must be a one-dimensional array")
+    if samples.size == 0:
+        raise ValueError("samples array must contain at least one value")
+    if not np.issubdtype(samples.dtype, np.integer):
+        raise ValueError("samples must be integer-valued indices")
+    if np.any(samples < 0) or np.any(samples >= predicted.size):
+        raise ValueError("samples contain indices outside the probability support")
+
+    counts = np.bincount(samples, minlength=predicted.size).astype(float)
+    n = counts.sum()
+    if n <= 0:
+        raise ValueError("samples array must contain at least one value")
+
+    empirical_cdf = np.cumsum(counts) / n
+    predicted_cdf = np.cumsum(predicted)
+    d_statistic = np.max(np.abs(empirical_cdf - predicted_cdf))
+
+    # Kolmogorov distribution survival function; conservative for discrete bins.
+    p_value = stats.ksone.sf(d_statistic, n)
+    return float(d_statistic), float(p_value)
