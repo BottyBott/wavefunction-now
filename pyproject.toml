@@ -10,6 +10,10 @@ dependencies = [
     "matplotlib",
 ]
 
+[tool.setuptools]
+packages = ["wavefunction_now"]
+package-dir = { wavefunction_now = "src" }
+
 [project.optional-dependencies]
 dev = [
     "pytest",
